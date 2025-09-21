@@ -1,11 +1,126 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <title>Roman Rendon - Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding-top: 70px;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #191970;
+      color: white;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .section, .welcome {
+      display: none;
+      margin-top: 2rem;
+    }
+
+    .section.active, .welcome.active {
+      display: block;
+    }
+
+    h1 {
+      color: #1a73e8;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello, I'm Roman!</h1>
-  <p>This is my portfolio site hosted with GitHub Pages.</p>
+
+  <div class="navbar">
+    <div class="nav-links">
+      <a onclick="showHome()">Home</a>
+      <a onclick="showSection('projects')">Projects</a>
+      <a onclick="showSection('resume')">Resume</a>
+      <a onclick="showSection('contact')">Contact</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="welcome" class="welcome active">
+      <h1>👋 Welcome</h1>
+      <p>Hello! I’m Roman Rendon, a developer focused on quantum computing and algorithms. This is my portfolio site.</p>
+      <img src="Images\Quantum-Computer.jpg" alt="Quantum Computer" style="width: 100%; height: auto;">
+    </div>
+
+    <div id="projects" class="section">
+      <h2>📁 Projects</h2>
+      <ul>
+        <li><strong><a href="https://github.com/Romantll/Ospetal">Ospetal</a></strong> – A hospital management system using Python and MySQL</li>
+        <li><strong>Text-RPG</strong> – C-based text game engine with inventory/save features</li>
+      </ul>
+    </div>
+
+    <div id="resume" class="section">
+      <h2>📄 Resume</h2>
+      <p><a href="Documents\RomanRendonResume-5.pdf" target="_blank">Download Resume</a></p>
+      <iframe src="Documents/RomanRendonResume-5.pdf" width="100%" height="600px" style="border: 1px solid #ccc"></iframe>
+    </div>
+
+    <div id="contact" class="section">
+      <h2>📬 Contact</h2>
+      <p>Email: <a href="mailto:roman.rendon123@gmail.com">roman.rendon123@gmail.com</a></p>
+      <p>GitHub: <a href="https://github.com/Romantll" target="_blank">@Romantll</a></p>
+    </div>
+  </div>
+
+  <script>
+    function showSection(id) {
+      // Hide welcome
+      document.getElementById('welcome').classList.remove('active');
+
+      // Hide all other sections
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+
+      // Show selected section
+      document.getElementById(id).classList.add('active');
+    }
+
+    function showHome() {
+      // Hide all sections
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+
+      // Show welcome again
+      document.getElementById('welcome').classList.add('active');
+    }
+  </script>
+
 </body>
 </html>
