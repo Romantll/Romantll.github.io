@@ -298,6 +298,33 @@
       backdrop-filter: blur(4px);
     }
 
+    /* Description overlay — fades in on hover */
+    .proj-hover-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(5,8,20,0.95) 0%,
+        rgba(5,8,20,0.75) 50%,
+        rgba(5,8,20,0.2) 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 1.25rem 3rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .proj-card:hover .proj-hover-overlay { opacity: 1; }
+
+    .proj-desc {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.88);
+      text-align: center;
+    }
+
     .proj-card:focus { outline: none; }
     .proj-card:focus-visible {
       box-shadow: 0 0 0 3px var(--cyan);
@@ -378,13 +405,102 @@
     }
 
     .contact-card a:hover { color: var(--cyan); }
+
+    /* ── Hamburger ──────────────────────────────── */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-bright);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Responsive ─────────────────────────────── */
+    @media (max-width: 768px) {
+      /* Navbar */
+      .nav-toggle { display: flex; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 1rem;
+        background: var(--nav-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links a {
+        padding: 0.6rem 1rem;
+        font-size: 1rem;
+      }
+
+      /* Hero — single column, image below */
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: unset;
+        gap: 2rem;
+        padding-top: 1rem;
+      }
+
+      .hero-text { text-align: center; }
+      .hero-text p { max-width: 100%; }
+      .hero-badges { justify-content: center; }
+
+      /* Container */
+      .container { padding: 1.5rem 1rem 3rem; }
+
+      /* Section heading */
+      .section-heading { font-size: 1.25rem; }
+
+      /* Grids — single column on small phones */
+      .proj-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Iframes */
+      .doc-frame-wrap iframe { height: 420px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-text h1 { font-size: 1.6rem; }
+      .hero-img-wrap { display: none; } /* hide image on very small screens */
+      .doc-frame-wrap iframe { height: 320px; }
+    }
   </style>
 </head>
 <body>
 
   <nav class="navbar">
     <div class="nav-brand">roman<span>.</span>rendon</div>
-    <div class="nav-links">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
       <a id="nav-home"      onclick="showHome()"              class="active">Home</a>
       <a id="nav-projects"  onclick="showSection('projects')">Projects</a>
       <a id="nav-documents" onclick="showSection('documents')">Documents</a>
@@ -428,6 +544,9 @@
 
         <a class="proj-card" href="https://github.com/Romantll/Text-RPG" target="_blank" rel="noopener noreferrer" aria-label="Open C Text-RPG on GitHub">
           <img class="proj-img" src="Images/Text-RPG.png" alt="Screenshot of Text-RPG" />
+          <div class="proj-hover-overlay">
+            <p class="proj-desc">A command-line RPG written in C with turn-based combat, inventory management, and a branching story.</p>
+          </div>
           <div class="proj-label">
             <span class="proj-title">C Text RPG</span>
             <span class="proj-tag">C • CLI</span>
@@ -436,6 +555,9 @@
 
         <a class="proj-card" href="https://github.com/Romantll/Ospetal" target="_blank" rel="noopener noreferrer" aria-label="Open Ospetal on GitHub">
           <img class="proj-img" src="Images/Ospetal.png" alt="Screenshot of Ospetal" />
+          <div class="proj-hover-overlay">
+            <p class="proj-desc">A hospital management system for tracking patients, staff, and medical records using Python and MySQL.</p>
+          </div>
           <div class="proj-label">
             <span class="proj-title">Hospital DB</span>
             <span class="proj-tag">Python • MySQL</span>
@@ -444,6 +566,9 @@
 
         <a class="proj-card" href="https://github.com/Romantll/TheDragonsCrystal" target="_blank" rel="noopener noreferrer" aria-label="Open TheDragonsCrystal on GitHub">
           <img class="proj-img" src="Images/TheDragonsCrystal.png" alt="Screenshot of TheDragonsCrystal" />
+          <div class="proj-hover-overlay">
+            <p class="proj-desc">An Android RPG adventure game built in Java featuring turn-based combat and exploration.</p>
+          </div>
           <div class="proj-label">
             <span class="proj-title">The Dragon's Crystal</span>
             <span class="proj-tag">Android • Java</span>
@@ -452,6 +577,9 @@
 
         <a class="proj-card" href="https://github.com/Romantll/Roman-Bot" target="_blank" rel="noopener noreferrer" aria-label="Open Roman-Bot on GitHub">
           <img class="proj-img" src="Images/RomanBot.png" alt="Screenshot of Roman-Bot" />
+          <div class="proj-hover-overlay">
+            <p class="proj-desc">A Discord bot written in Python with commands for server moderation and entertainment.</p>
+          </div>
           <div class="proj-label">
             <span class="proj-title">Discord Bot</span>
             <span class="proj-tag">Discord • Python</span>
@@ -512,18 +640,36 @@
       document.getElementById(NAV_MAP[key]).classList.add('active');
     }
 
+    function showHome() {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById('welcome').classList.add('active');
+      setActiveNav('home');
+      closeMenu();
+    }
+
     function showSection(id) {
       document.getElementById('welcome').classList.remove('active');
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
       setActiveNav(id);
+      closeMenu();
     }
 
-    function showHome() {
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      document.getElementById('welcome').classList.add('active');
-      setActiveNav('home');
+    // Hamburger
+    const toggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    function closeMenu() {
+      toggle.classList.remove('open');
+      navLinks.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
     }
+
+    toggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      toggle.classList.toggle('open', isOpen);
+      toggle.setAttribute('aria-expanded', isOpen);
+    });
   </script>
 
 </body>
