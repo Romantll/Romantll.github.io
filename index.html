@@ -4,170 +4,428 @@
   <meta charset="UTF-8" />
   <title>Roman Rendon - Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: sans-serif;
+    *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
-      padding-top: 70px;
-      background: #1d252d;
-      color: #ccc;
+      padding: 0;
     }
 
+    :root {
+      --bg:        #0a0e1a;
+      --bg-card:   rgba(255,255,255,0.04);
+      --bg-card-h: rgba(255,255,255,0.08);
+      --border:    rgba(255,255,255,0.08);
+      --border-h:  rgba(0,212,255,0.4);
+      --cyan:      #00d4ff;
+      --indigo:    #6366f1;
+      --text:      #a8b2c8;
+      --text-bright: #e2e8f0;
+      --nav-bg:    rgba(10,14,26,0.85);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-top: 64px;
+      /* subtle grid texture */
+      background-image:
+        linear-gradient(rgba(99,102,241,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99,102,241,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* ── Navbar ─────────────────────────────────── */
     .navbar {
       position: fixed;
       top: 0;
       width: 100%;
-      background-color: #191970;
-      color: white;
-      padding: 1rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 64px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       z-index: 1000;
+    }
+
+    .nav-brand {
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      color: var(--cyan);
+      letter-spacing: 1px;
+    }
+
+    .nav-brand span {
+      color: var(--text);
+      opacity: 0.5;
     }
 
     .nav-links {
       display: flex;
-      gap: 1.5rem;
+      gap: 0.25rem;
     }
 
     .nav-links a {
-      color: white;
+      color: var(--text);
       text-decoration: none;
-      font-weight: bold;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      border: 1px solid transparent;
       cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
     }
 
     .nav-links a:hover {
-      text-decoration: underline;
+      color: var(--cyan);
+      border-color: var(--border-h);
+      background: rgba(0,212,255,0.05);
     }
 
+    .nav-links a.active {
+      color: var(--cyan);
+      background: rgba(0,212,255,0.08);
+      border-color: rgba(0,212,255,0.25);
+    }
+
+    /* ── Layout ─────────────────────────────────── */
     .container {
-      padding: 2rem;
-      text-align: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 4rem;
     }
 
     .section, .welcome {
       display: none;
-      margin-top: 2rem;
+      animation: fadeIn 0.3s ease;
     }
 
     .section.active, .welcome.active {
       display: block;
     }
 
-    h1 {
-      color: #1a73e8;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Container */
+    /* ── Section headings ───────────────────────── */
+    .section-heading {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.5rem;
+      color: var(--text-bright);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--border), transparent);
+      margin-left: 0.5rem;
+    }
+
+    .section-sub {
+      color: var(--text);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ── Welcome / Hero ─────────────────────────── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      min-height: calc(100vh - 130px);
+    }
+
+    .hero-text h1 {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--text-bright);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-text h1 .accent {
+      color: var(--cyan);
+    }
+
+    .hero-text .role {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.95rem;
+      color: var(--indigo);
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-text p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text);
+      max-width: 440px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--text-bright);
+      background: var(--bg-card);
+      letter-spacing: 0.3px;
+    }
+
+    .badge.cyan  { border-color: rgba(0,212,255,0.35); color: var(--cyan); }
+    .badge.indigo{ border-color: rgba(99,102,241,0.4); color: #a5b4fc; }
+
+    .hero-img-wrap {
+      position: relative;
+    }
+
+    .hero-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--cyan), var(--indigo));
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    .hero-img-wrap img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      border-radius: 16px;
+      display: block;
+      filter: saturate(0.8) brightness(0.9);
+    }
+
+    /* ── Projects grid ──────────────────────────── */
     .proj-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1.25rem;
-    margin: 2rem 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
     }
 
-
-    /* Card (clickable) */
     .proj-card {
-    position: relative;
-    display: block; /* so the whole card is a link */
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-    transition: transform .25s ease, box-shadow .25s ease;
-    background: #fff;
-    aspect-ratio: 16/10; /* keeps a nice uniform shape */
+      position: relative;
+      display: block;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      aspect-ratio: 16/10;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      background: var(--bg-card);
     }
-
 
     .proj-card:hover {
-    transform: translateY(-4px) scale(1.03);
-    box-shadow: 0 14px 28px rgba(0,0,0,0.2);
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,212,255,0.2);
+      border-color: rgba(0,212,255,0.3);
     }
 
-
-    /* Screenshot */
     .proj-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    filter: saturate(0.85);
-    transition: filter .25s ease, transform .25s ease;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.75) brightness(0.85);
+      transition: filter 0.25s ease, transform 0.25s ease;
     }
-
 
     .proj-card:hover .proj-img {
-    filter: saturate(1) contrast(1.05);
-    transform: scale(1.04);
+      filter: saturate(1) brightness(0.95);
+      transform: scale(1.04);
     }
 
-
-    /* Overlay label */
     .proj-label {
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    padding: .75rem 1rem;
-    background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.0));
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    gap: .75rem;
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 0.75rem 1rem;
+      background: linear-gradient(to top, rgba(5,8,20,0.9) 0%, rgba(5,8,20,0) 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 0.5rem;
     }
-
 
     .proj-title {
-    font: 600 1rem/1.2 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-    letter-spacing: .2px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.2px;
     }
-
 
     .proj-tag {
-    font: 600 .7rem/1 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-    background: rgba(255,255,255,0.14);
-    border: 1px solid rgba(255,255,255,0.35);
-    padding: .25rem .5rem;
-    border-radius: 999px;
-    backdrop-filter: blur(3px);
-    white-space: nowrap;
+      font-size: 0.65rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      background: rgba(0,212,255,0.12);
+      border: 1px solid rgba(0,212,255,0.3);
+      color: var(--cyan);
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      backdrop-filter: blur(4px);
     }
 
-
-    /*Subtle focus ring for keyboard users */
     .proj-card:focus { outline: none; }
     .proj-card:focus-visible {
-    box-shadow: 0 0 0 3px #1a73e8, 0 12px 24px rgba(0,0,0,0.18);
+      box-shadow: 0 0 0 3px var(--cyan);
     }
+
+    /* ── Documents ──────────────────────────────── */
+    .doc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--cyan);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      margin-bottom: 0.25rem;
+      transition: opacity 0.2s;
+    }
+
+    .doc-link:hover { opacity: 0.75; }
+
+    .doc-link::before {
+      content: '↗';
+      font-size: 0.8rem;
+    }
+
+    .doc-frame-wrap {
+      margin: 0.75rem 0 2rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .doc-frame-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+
+    /* ── Contact ────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .contact-card:hover {
+      border-color: rgba(0,212,255,0.3);
+      background: var(--bg-card-h);
+    }
+
+    .contact-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--indigo);
+      margin-bottom: 0.4rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .contact-card a {
+      color: var(--text-bright);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .contact-card a:hover { color: var(--cyan); }
   </style>
 </head>
 <body>
 
-  <div class="navbar">
+  <nav class="navbar">
+    <div class="nav-brand">roman<span>.</span>rendon</div>
     <div class="nav-links">
-      <a onclick="showHome()">Home</a>
-      <a onclick="showSection('projects')">Projects</a>
-      <a onclick="showSection('documents')">Documents</a>
-      <a onclick="showSection('contact')">Contact</a>
+      <a id="nav-home"      onclick="showHome()"              class="active">Home</a>
+      <a id="nav-projects"  onclick="showSection('projects')">Projects</a>
+      <a id="nav-documents" onclick="showSection('documents')">Documents</a>
+      <a id="nav-contact"   onclick="showSection('contact')">Contact</a>
     </div>
-  </div>
+  </nav>
 
   <div class="container">
+
+    <!-- HOME -->
     <div id="welcome" class="welcome active">
-      <h1>👋 Welcome</h1>
-      <p>Hello! I’m Roman Rendon, a developer focused on quantum computing and algorithms. This is my portfolio site.</p>
-      <img src="Images\Quantum-Computer.jpg" alt="Quantum Computer" style="width: 100%; height: auto;">
+      <div class="hero">
+        <div class="hero-text">
+          <p class="role">// Quantum Computing &amp; Algorithms</p>
+          <h1>Hi, I'm <span class="accent">Roman Rendon</span></h1>
+          <p>
+            A developer with a passion for quantum computing, algorithms, and building
+            tools that push the boundaries of what software can do.
+          </p>
+          <div class="hero-badges">
+            <span class="badge cyan">Quantum Computing</span>
+            <span class="badge cyan">Algorithms</span>
+            <span class="badge indigo">Python</span>
+            <span class="badge indigo">Java</span>
+            <span class="badge indigo">C</span>
+            <span class="badge">Android</span>
+            <span class="badge">MySQL</span>
+          </div>
+        </div>
+        <div class="hero-img-wrap">
+          <img src="Images/Quantum-Computer.jpg" alt="Quantum Computer">
+        </div>
+      </div>
     </div>
 
-  <div id="projects" class="section">
-    <section aria-labelledby="projects-title">
-      <h2 id="projects-title">📁 Projects</h2>
-
+    <!-- PROJECTS -->
+    <div id="projects" class="section">
+      <h2 class="section-heading">Projects</h2>
+      <p class="section-sub">A selection of things I've built.</p>
       <div class="proj-grid">
-        <!-- Card 1 Text-RPG-->
+
         <a class="proj-card" href="https://github.com/Romantll/Text-RPG" target="_blank" rel="noopener noreferrer" aria-label="Open C Text-RPG on GitHub">
           <img class="proj-img" src="Images/Text-RPG.png" alt="Screenshot of Text-RPG" />
           <div class="proj-label">
@@ -176,7 +434,6 @@
           </div>
         </a>
 
-        <!-- Card 2 Ospetal -->
         <a class="proj-card" href="https://github.com/Romantll/Ospetal" target="_blank" rel="noopener noreferrer" aria-label="Open Ospetal on GitHub">
           <img class="proj-img" src="Images/Ospetal.png" alt="Screenshot of Ospetal" />
           <div class="proj-label">
@@ -185,7 +442,6 @@
           </div>
         </a>
 
-        <!-- Card 3 The Dragon's Crystal-->
         <a class="proj-card" href="https://github.com/Romantll/TheDragonsCrystal" target="_blank" rel="noopener noreferrer" aria-label="Open TheDragonsCrystal on GitHub">
           <img class="proj-img" src="Images/TheDragonsCrystal.png" alt="Screenshot of TheDragonsCrystal" />
           <div class="proj-label">
@@ -194,52 +450,79 @@
           </div>
         </a>
 
-        <!-- Card 4 Discord Bot-->
-         <a class="proj-card" href="https://github.com/Romantll/Roman-Bot" target="_blank" rel="noopener noreferrer" aria-label="Open Roman-Bot on GitHub">
+        <a class="proj-card" href="https://github.com/Romantll/Roman-Bot" target="_blank" rel="noopener noreferrer" aria-label="Open Roman-Bot on GitHub">
           <img class="proj-img" src="Images/RomanBot.png" alt="Screenshot of Roman-Bot" />
           <div class="proj-label">
             <span class="proj-title">Discord Bot</span>
             <span class="proj-tag">Discord • Python</span>
           </div>
-         </a>
+        </a>
+
       </div>
-    </section>
-  </div>
+    </div>
 
+    <!-- DOCUMENTS -->
     <div id="documents" class="section">
-      <h2>📄 Documents</h2>
-      <p><a href="Documents/RomanRendonResume.pdf" target="_blank">Download Resume</a></p>
-      <iframe src="Documents/RomanRendonResume.pdf" width="100%" height="600px" style="border: 1px solid #ccc"></iframe>
-      <p><a href="Documents/PetalNet.pdf" target="_blank">Download PetalNet: Entry level neural network paper</a></p>
-      <iframe src="Documents/PetalNet.pdf" width="100%" height="600px" style="border: 1px solid #ccc;"></iframe>
+      <h2 class="section-heading">Documents</h2>
+      <p class="section-sub">Resume and published work.</p>
+
+      <a class="doc-link" href="Documents/RomanRendonResume.pdf" target="_blank">Download Resume</a>
+      <div class="doc-frame-wrap">
+        <iframe src="Documents/RomanRendonResume.pdf" title="Resume"></iframe>
+      </div>
+
+      <a class="doc-link" href="Documents/PetalNet.pdf" target="_blank">Download PetalNet — Entry-level neural network paper</a>
+      <div class="doc-frame-wrap">
+        <iframe src="Documents/PetalNet.pdf" title="PetalNet paper"></iframe>
+      </div>
     </div>
 
+    <!-- CONTACT -->
     <div id="contact" class="section">
-      <h2>📬 Contact</h2>
-      <p>School Email: <a href="mailto:roman.rendon@my.utsa.edu">roman.rendon@my.utsa.edu</a></p>
-      <p>Email: <a href="mailto:roman.rendon123@gmail.com">roman.rendon123@gmail.com</a></p>
-      <p>GitHub: <a href="https://github.com/Romantll" target="_blank">@Romantll</a></p>
+      <h2 class="section-heading">Contact</h2>
+      <p class="section-sub">Get in touch.</p>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-label">School Email</div>
+          <a href="mailto:roman.rendon@my.utsa.edu">roman.rendon@my.utsa.edu</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-label">Personal Email</div>
+          <a href="mailto:roman.rendon123@gmail.com">roman.rendon123@gmail.com</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-label">GitHub</div>
+          <a href="https://github.com/Romantll" target="_blank" rel="noopener noreferrer">@Romantll</a>
+        </div>
+      </div>
     </div>
+
   </div>
 
   <script>
+    const NAV_MAP = {
+      home:      'nav-home',
+      projects:  'nav-projects',
+      documents: 'nav-documents',
+      contact:   'nav-contact',
+    };
+
+    function setActiveNav(key) {
+      Object.values(NAV_MAP).forEach(id => document.getElementById(id).classList.remove('active'));
+      document.getElementById(NAV_MAP[key]).classList.add('active');
+    }
+
     function showSection(id) {
-      // Hide welcome
       document.getElementById('welcome').classList.remove('active');
-
-      // Hide all other sections
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-
-      // Show selected section
       document.getElementById(id).classList.add('active');
+      setActiveNav(id);
     }
 
     function showHome() {
-      // Hide all sections
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-
-      // Show welcome again
       document.getElementById('welcome').classList.add('active');
+      setActiveNav('home');
     }
   </script>
 
