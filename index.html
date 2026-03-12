@@ -330,6 +330,28 @@
       box-shadow: 0 0 0 3px var(--cyan);
     }
 
+    /* Broken-image fallback */
+    .proj-card.img-error .proj-img { display: none; }
+
+    .proj-card.img-error {
+      background: linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(0,212,255,0.06) 100%);
+    }
+
+    .proj-card.img-error::after {
+      content: attr(data-title);
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 1px;
+      padding: 1rem;
+      text-align: center;
+    }
+
     /* ── Documents ──────────────────────────────── */
     .doc-link {
       display: inline-flex;
@@ -542,8 +564,8 @@
       <p class="section-sub">A selection of things I've built.</p>
       <div class="proj-grid">
 
-        <a class="proj-card" href="https://github.com/Romantll/Text-RPG" target="_blank" rel="noopener noreferrer" aria-label="Open C Text-RPG on GitHub">
-          <img class="proj-img" src="Images/Text-RPG.png" alt="Screenshot of Text-RPG" />
+        <a class="proj-card" href="https://github.com/Romantll/Text-RPG" target="_blank" rel="noopener noreferrer" aria-label="Open C Text-RPG on GitHub" data-title="C Text RPG">
+          <img class="proj-img" src="Images/Text-RPG.png" alt="Screenshot of Text-RPG" onerror="this.closest('.proj-card').classList.add('img-error')" />
           <div class="proj-hover-overlay">
             <p class="proj-desc">A command-line RPG written in C with turn-based combat, inventory management, and a branching story.</p>
           </div>
@@ -553,8 +575,8 @@
           </div>
         </a>
 
-        <a class="proj-card" href="https://github.com/Romantll/Ospetal" target="_blank" rel="noopener noreferrer" aria-label="Open Ospetal on GitHub">
-          <img class="proj-img" src="Images/Ospetal.png" alt="Screenshot of Ospetal" />
+        <a class="proj-card" href="https://github.com/Romantll/Ospetal" target="_blank" rel="noopener noreferrer" aria-label="Open Ospetal on GitHub" data-title="Hospital DB">
+          <img class="proj-img" src="Images/Ospetal.png" alt="Screenshot of Ospetal" onerror="this.closest('.proj-card').classList.add('img-error')" />
           <div class="proj-hover-overlay">
             <p class="proj-desc">A hospital management system for tracking patients, staff, and medical records using Python and MySQL.</p>
           </div>
@@ -564,8 +586,8 @@
           </div>
         </a>
 
-        <a class="proj-card" href="https://github.com/Romantll/TheDragonsCrystal" target="_blank" rel="noopener noreferrer" aria-label="Open TheDragonsCrystal on GitHub">
-          <img class="proj-img" src="Images/TheDragonsCrystal.png" alt="Screenshot of TheDragonsCrystal" />
+        <a class="proj-card" href="https://github.com/Romantll/TheDragonsCrystal" target="_blank" rel="noopener noreferrer" aria-label="Open TheDragonsCrystal on GitHub" data-title="The Dragon's Crystal">
+          <img class="proj-img" src="Images/TheDragonsCrystal.png" alt="Screenshot of TheDragonsCrystal" onerror="this.closest('.proj-card').classList.add('img-error')" />
           <div class="proj-hover-overlay">
             <p class="proj-desc">An Android RPG adventure game built in Java featuring turn-based combat and exploration.</p>
           </div>
@@ -575,8 +597,8 @@
           </div>
         </a>
 
-        <a class="proj-card" href="https://github.com/Romantll/Roman-Bot" target="_blank" rel="noopener noreferrer" aria-label="Open Roman-Bot on GitHub">
-          <img class="proj-img" src="Images/RomanBot.png" alt="Screenshot of Roman-Bot" />
+        <a class="proj-card" href="https://github.com/Romantll/Roman-Bot" target="_blank" rel="noopener noreferrer" aria-label="Open Roman-Bot on GitHub" data-title="Discord Bot">
+          <img class="proj-img" src="Images/RomanBot.png" alt="Screenshot of Roman-Bot" onerror="this.closest('.proj-card').classList.add('img-error')" />
           <div class="proj-hover-overlay">
             <p class="proj-desc">A Discord bot written in Python with commands for server moderation and entertainment.</p>
           </div>
@@ -586,14 +608,36 @@
           </div>
         </a>
 
-        <a class="proj-card" href="https://www.akiramelodie.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Akira Meoldie Website">
-          <img class="proj-img" src="Images/akiramelodie.png" target="_blank" alt="Screenshot of Website"/>
+        <a class="proj-card" href="https://www.akiramelodie.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Akira Melodie Website" data-title="Akira Melodie">
+          <img class="proj-img" src="Images/akiramelodie.png" alt="Screenshot of Akira Melodie Website" onerror="this.closest('.proj-card').classList.add('img-error')"/>
           <div class="proj-hover-overlay">
-            <p class="proj-desc">A website made with Node.js with dynamic Youtube API intergration.</p>
+            <p class="proj-desc">Official website for VTuber Akira Melodie — built with Next.js and Tailwind CSS, deployed on Vercel.</p>
           </div>
           <div class="proj-label">
-            <span class="proj-title">Freelance Website</span>
-            <span class="proj-tag">Node.js</span>
+            <span class="proj-title">Akira Melodie</span>
+            <span class="proj-tag">Next.js • Tailwind</span>
+          </div>
+        </a>
+
+        <a class="proj-card" href="https://github.com/Romantll/DoppelbotSL" target="_blank" rel="noopener noreferrer" aria-label="Open DoppelbotSL on GitHub" data-title="DoppelbotSL">
+          <img class="proj-img" src="Images/doppelbot.png" alt="Screenshot of DoppelbotSL" onerror="this.closest('.proj-card').classList.add('img-error')"/>
+          <div class="proj-hover-overlay">
+            <p class="proj-desc">A multiplayer social-deduction game where humans and AI bots share a chat room — players must vote out the AIs before the rounds run out.</p>
+          </div>
+          <div class="proj-label">
+            <span class="proj-title">DoppelbotSL</span>
+            <span class="proj-tag">FastAPI • WebSockets</span>
+          </div>
+        </a>
+
+        <a class="proj-card" href="https://resonamat.com" target="_blank" rel="noopener noreferrer" aria-label="Open ResonaMAT" data-title="ResonaMAT">
+          <img class="proj-img" src="Images/resonamat.png" alt="Screenshot of ResonaMAT" onerror="this.closest('.proj-card').classList.add('img-error')"/>
+          <div class="proj-hover-overlay">
+            <p class="proj-desc">A creator analytics dashboard that aggregates YouTube, Twitch, Instagram, and Bluesky into one place, with scheduled posting and OAuth integrations.</p>
+          </div>
+          <div class="proj-label">
+            <span class="proj-title">ResonaMAT</span>
+            <span class="proj-tag">React • Node.js • PostgreSQL</span>
           </div>
         </a>
 
