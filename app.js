@@ -1,61 +1,80 @@
-// ── Project data ─────────────────────────────────────────────────────────────
-const PROJECTS = [
+// ── Project categories ────────────────────────────────────────────────────────
+const CATEGORIES = [
   {
-    title:  'C Text RPG',
-    tag:    'C • CLI',
-    img:    'Images/Text-RPG.png',
-    href:   'https://github.com/Romantll/Text-RPG',
-    desc:   'A command-line RPG written in C with turn-based combat, inventory management, and a branching story.',
+    label:    'Featured Projects',
+    featured: true,
+    projects: [
+      {
+        title: 'ResonaMAT',
+        tag:   'React • Node.js • PostgreSQL',
+        img:   'Images/Resonamat-analytics.png',
+        href:  'https://resonamat.com',
+        desc:  'A creator analytics dashboard that aggregates YouTube, Twitch, Instagram, and Bluesky into one place, with scheduled posting and OAuth integrations.',
+      },
+      {
+        title: 'DoppelbotSL',
+        tag:   'FastAPI • WebSockets',
+        img:   'Images/doppelbot.png',
+        href:  'https://github.com/Romantll/DoppelbotSL',
+        desc:  'A multiplayer social-deduction game where humans and AI bots share a chat room — players must vote out the AIs before the rounds run out.',
+      },
+    ],
   },
   {
-    title:  'Hospital DB',
-    tag:    'Python • MySQL',
-    img:    'Images/Ospetal.png',
-    href:   'https://github.com/Romantll/Ospetal',
-    desc:   'A hospital management system for tracking patients, staff, and medical records using Python and MySQL.',
+    label:    'Client / Professional Work',
+    projects: [
+      {
+        title: 'Akira Melodie',
+        tag:   'Next.js • Tailwind',
+        img:   'Images/akiramelodie.png',
+        href:  'https://www.akiramelodie.com/',
+        desc:  'Official website for VTuber Akira Melodie — built with Next.js and Tailwind CSS, deployed on Vercel.',
+      },
+    ],
   },
   {
-    title:  "The Dragon's Crystal",
-    tag:    'Android • Java',
-    img:    'Images/TheDragonsCrystal.png',
-    href:   'https://github.com/Romantll/TheDragonsCrystal',
-    desc:   'An Android RPG adventure game built in Java featuring turn-based combat and exploration.',
+    label:    'Backend / Systems',
+    projects: [
+      {
+        title: 'Hospital DB',
+        tag:   'Python • MySQL',
+        img:   'Images/Ospetal.png',
+        href:  'https://github.com/Romantll/Ospetal',
+        desc:  'A hospital management system for tracking patients, staff, and medical records using Python and MySQL.',
+      },
+      {
+        title: 'Discord Bot',
+        tag:   'Discord • Python',
+        img:   'Images/RomanBot.png',
+        href:  'https://github.com/Romantll/Roman-Bot',
+        desc:  'A Discord bot written in Python with commands for server moderation and entertainment.',
+      },
+    ],
   },
   {
-    title:  'Discord Bot',
-    tag:    'Discord • Python',
-    img:    'Images/RomanBot.png',
-    href:   'https://github.com/Romantll/Roman-Bot',
-    desc:   'A Discord bot written in Python with commands for server moderation and entertainment.',
-  },
-  {
-    title:  'Akira Melodie',
-    tag:    'Next.js • Tailwind',
-    img:    'Images/akiramelodie.png',
-    href:   'https://www.akiramelodie.com/',
-    desc:   'Official website for VTuber Akira Melodie — built with Next.js and Tailwind CSS, deployed on Vercel.',
-  },
-  {
-    title:  'DoppelbotSL',
-    tag:    'FastAPI • WebSockets',
-    img:    'Images/doppelbot.png',
-    href:   'https://github.com/Romantll/DoppelbotSL',
-    desc:   'A multiplayer social-deduction game where humans and AI bots share a chat room — players must vote out the AIs before the rounds run out.',
-  },
-  {
-    title:  'ResonaMAT',
-    tag:    'React • Node.js • PostgreSQL',
-    img:    'Images/Resonamat-analytics.png',
-    href:   'https://resonamat.com',
-    desc:   'A creator analytics dashboard that aggregates YouTube, Twitch, Instagram, and Bluesky into one place, with scheduled posting and OAuth integrations.',
+    label:    'Creative / Games',
+    projects: [
+      {
+        title: 'C Text RPG',
+        tag:   'C • CLI',
+        img:   'Images/Text-RPG.png',
+        href:  'https://github.com/Romantll/Text-RPG',
+        desc:  'A command-line RPG written in C with turn-based combat, inventory management, and a branching story.',
+      },
+      {
+        title: "The Dragon's Crystal",
+        tag:   'Android • Java',
+        img:   'Images/TheDragonsCrystal.png',
+        href:  'https://github.com/Romantll/TheDragonsCrystal',
+        desc:  'An Android RPG adventure game built in Java featuring turn-based combat and exploration.',
+      },
+    ],
   },
 ];
 
-// ── Render project cards ──────────────────────────────────────────────────────
-function renderProjects() {
-  const grid = document.getElementById('proj-grid');
-
-  grid.innerHTML = PROJECTS.map(p => `
+// ── Card template ─────────────────────────────────────────────────────────────
+function cardHTML(p) {
+  return `
     <a class="proj-card"
        href="${p.href}"
        target="_blank"
@@ -74,6 +93,20 @@ function renderProjects() {
         <span class="proj-tag">${p.tag}</span>
       </div>
     </a>
+  `;
+}
+
+// ── Render categorized project sections ───────────────────────────────────────
+function renderProjects() {
+  const container = document.getElementById('proj-grid');
+
+  container.innerHTML = CATEGORIES.map(cat => `
+    <div class="proj-category">
+      <h3 class="proj-category-label">${cat.label}</h3>
+      <div class="proj-grid${cat.featured ? ' proj-grid--featured' : ''}">
+        ${cat.projects.map(cardHTML).join('')}
+      </div>
+    </div>
   `).join('');
 }
 
