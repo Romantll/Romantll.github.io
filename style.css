@@ -220,19 +220,42 @@ body {
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--indigo);
+  color: var(--text);
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
+.proj-category-label::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
 .proj-category-label::after {
   content: '';
   flex: 1;
   height: 1px;
-  background: linear-gradient(to right, rgba(99,102,241,0.3), transparent);
+  background: linear-gradient(to right, currentColor, transparent);
+  opacity: 0.2;
 }
+
+/* Per-category accent colours */
+.proj-category--featured    .proj-category-label { color: var(--cyan); }
+.proj-category--featured    .proj-category-label::before { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
+
+.proj-category--professional .proj-category-label { color: #60a5fa; }
+.proj-category--professional .proj-category-label::before { background: #60a5fa; box-shadow: 0 0 6px #60a5fa; }
+
+.proj-category--systems     .proj-category-label { color: #34d399; }
+.proj-category--systems     .proj-category-label::before { background: #34d399; box-shadow: 0 0 6px #34d399; }
+
+.proj-category--games       .proj-category-label { color: #a78bfa; }
+.proj-category--games       .proj-category-label::before { background: #a78bfa; box-shadow: 0 0 6px #a78bfa; }
 
 .proj-grid {
   display: grid;

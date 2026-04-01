@@ -2,6 +2,7 @@
 const CATEGORIES = [
   {
     label:    'Featured Projects',
+    variant:  'featured',
     featured: true,
     projects: [
       {
@@ -22,6 +23,7 @@ const CATEGORIES = [
   },
   {
     label:    'Client / Professional Work',
+    variant:  'professional',
     projects: [
       {
         title: 'Akira Melodie',
@@ -34,6 +36,7 @@ const CATEGORIES = [
   },
   {
     label:    'Backend / Systems',
+    variant:  'systems',
     projects: [
       {
         title: 'Hospital DB',
@@ -53,6 +56,7 @@ const CATEGORIES = [
   },
   {
     label:    'Creative / Games',
+    variant:  'games',
     projects: [
       {
         title: 'C Text RPG',
@@ -101,7 +105,7 @@ function renderProjects() {
   const container = document.getElementById('proj-grid');
 
   container.innerHTML = CATEGORIES.map(cat => `
-    <div class="proj-category">
+    <div class="proj-category proj-category--${cat.variant}">
       <h3 class="proj-category-label">${cat.label}</h3>
       <div class="proj-grid${cat.featured ? ' proj-grid--featured' : ''}">
         ${cat.projects.map(cardHTML).join('')}
