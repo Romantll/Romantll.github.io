@@ -26,7 +26,7 @@
 
   <div class="container">
 
-    <!-- HOME -->
+    
     <div id="welcome" class="welcome active">
       <div class="hero">
         <div class="hero-text">
@@ -60,14 +60,14 @@
       </div>
     </div>
 
-    <!-- PROJECTS -->
+    
     <div id="projects" class="section">
       <h2 class="section-heading">Projects</h2>
       <p class="section-sub">A selection of things I've built.</p>
       <div id="proj-grid"></div>
     </div>
 
-    <!-- DOCUMENTS -->
+    
     <div id="documents" class="section">
       <h2 class="section-heading">Documents</h2>
       <p class="section-sub">Resume and published work.</p>
@@ -83,7 +83,7 @@
       </div>
     </div>
 
-    <!-- CONTACT -->
+    
     <div id="contact" class="section">
       <h2 class="section-heading">Contact</h2>
       <p class="section-sub">Get in touch.</p>
@@ -103,6 +103,13 @@
       </div>
     </div>
 
+  </div>
+
+  
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()" role="dialog" aria-modal="true" aria-label="Image preview">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()" />
+    <p id="lightbox-caption" class="lightbox-caption"></p>
   </div>
 
   <script src="app.js"></script>
