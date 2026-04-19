@@ -92,25 +92,24 @@ const ICON_WEB   = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" 
 // ── Card template ─────────────────────────────────────────────────────────────
 function cardHTML(p) {
   const githubBtn = p.github
-    ? `<a class="proj-link" href="${p.github}" target="_blank" rel="noopener noreferrer" title="View on GitHub" onclick="event.stopPropagation()">${ICON_GITHUB}</a>`
+    ? `<a class="proj-link" href="${p.github}" target="_blank" rel="noopener noreferrer" title="View on GitHub">${ICON_GITHUB}</a>`
     : '';
   const websiteBtn = p.website
-    ? `<a class="proj-link proj-link--web" href="${p.website}" target="_blank" rel="noopener noreferrer" title="Visit website" onclick="event.stopPropagation()">${ICON_WEB}</a>`
+    ? `<a class="proj-link proj-link--web" href="${p.website}" target="_blank" rel="noopener noreferrer" title="Visit website">${ICON_WEB}</a>`
     : '';
 
-  const t = JSON.stringify(p.title);
   return `
-    <div class="proj-card" data-title="${p.title}">
+    <div class="proj-card">
       <div class="proj-img-wrap"
-           onclick="openLightbox('${p.img}', ${t})"
-           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox('${p.img}',${t})}"
+           data-img="${p.img}"
+           data-title="${p.title}"
            role="button" tabindex="0" aria-label="Enlarge ${p.title} screenshot">
         <img class="proj-img"
              src="${p.img}"
              alt="Screenshot of ${p.title}"
              loading="lazy"
              decoding="async"
-             onerror="this.closest('.proj-img-wrap').classList.add('img-error');this.closest('.proj-card').setAttribute('data-title',${t})" />
+             onerror="this.closest('.proj-img-wrap').classList.add('img-error')" />
         <div class="proj-hover-overlay">
           <p class="proj-desc">${p.desc}</p>
         </div>
@@ -135,8 +134,8 @@ function openLightbox(src, title) {
   const lb  = document.getElementById('lightbox');
   const img = document.getElementById('lightbox-img');
   const cap = document.getElementById('lightbox-caption');
-  img.src       = src;
-  img.alt       = title;
+  img.src         = src;
+  img.alt         = title;
   cap.textContent = title;
   lb.classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -152,7 +151,6 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
 // ── Render categorized project sections ───────────────────────────────────────
 function renderProjects() {
   const container = document.getElementById('proj-grid');
-
   container.innerHTML = CATEGORIES.map(cat => `
     <div class="proj-category proj-category--${cat.variant}">
       <h3 class="proj-category-label">${cat.label}</h3>
@@ -161,6 +159,17 @@ function renderProjects() {
       </div>
     </div>
   `).join('');
+
+  // Event delegation — handles any title (apostrophes, quotes, etc.)
+  container.addEventListener('click', e => {
+    const wrap = e.target.closest('.proj-img-wrap');
+    if (wrap) openLightbox(wrap.dataset.img, wrap.dataset.title);
+  });
+  container.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const wrap = e.target.closest('.proj-img-wrap');
+    if (wrap) { e.preventDefault(); openLightbox(wrap.dataset.img, wrap.dataset.title); }
+  });
 }
 
 // ── Navigation ────────────────────────────────────────────────────────────────
