@@ -8,7 +8,7 @@ const CATEGORIES = [
       {
         title:       'ResonaMAT',
         tag:         'React • Node.js • PostgreSQL',
-        img:         'Images/Resonamat-analytics.png',
+        img:         'Images/Resonamat-analytics.webp',
         website:     'https://resonamat.com',
         closedSource: true,
         desc:        'A creator analytics dashboard that aggregates YouTube, Twitch, Instagram, and Bluesky into one place, with scheduled posting and OAuth integrations.',
@@ -29,7 +29,7 @@ const CATEGORIES = [
       {
         title:       'Akira Melodie',
         tag:         'Next.js • Tailwind',
-        img:         'Images/akiramelodie.png',
+        img:         'Images/akiramelodie.webp',
         website:     'https://www.akiramelodie.com/',
         closedSource: true,
         desc:        'Official website for VTuber Akira Melodie — built with Next.js and Tailwind CSS, deployed on Vercel.',
@@ -41,6 +41,13 @@ const CATEGORIES = [
     variant:  'systems',
     projects: [
       {
+        title:  'ArcaneLink',
+        tag:    'Linux • WireGuard • Oracle Cloud',
+        img:    'Images/ArcaneLink-Architecture.drawio.webp',
+        github: 'https://github.com/Romantll/ArcaneLink',
+        desc:   'Self-hosted modded Minecraft server infrastructure — home hardware routed through an Oracle VPS via WireGuard so the origin IP is never exposed, with Cloudflare Tunnel for hardened remote admin.',
+      },
+      {
         title:  'Hospital DB',
         tag:    'Python • MySQL',
         img:    'Images/Ospetal.png',
@@ -50,7 +57,7 @@ const CATEGORIES = [
       {
         title:  'Discord Bot',
         tag:    'Discord • Python',
-        img:    'Images/RomanBot.png',
+        img:    'Images/RomanBot.webp',
         github: 'https://github.com/Romantll/Roman-Bot',
         desc:   'A Discord bot written in Python with commands for server moderation and entertainment.',
       },
@@ -70,7 +77,7 @@ const CATEGORIES = [
       {
         title:  "The Dragon's Crystal",
         tag:    'Android • Java',
-        img:    'Images/TheDragonsCrystal.png',
+        img:    'Images/TheDragonsCrystal.webp',
         github: 'https://github.com/Romantll/TheDragonsCrystal',
         desc:   'An Android RPG adventure game built in Java featuring turn-based combat and exploration.',
       },
@@ -100,6 +107,8 @@ function cardHTML(p) {
         <img class="proj-img"
              src="${p.img}"
              alt="Screenshot of ${p.title}"
+             loading="lazy"
+             decoding="async"
              onerror="this.closest('.proj-img-wrap').classList.add('img-error');this.closest('.proj-card').setAttribute('data-title','${p.title}')" />
         <div class="proj-hover-overlay">
           <p class="proj-desc">${p.desc}</p>
