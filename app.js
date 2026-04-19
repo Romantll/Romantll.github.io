@@ -103,6 +103,8 @@ function cardHTML(p) {
       <div class="proj-img-wrap"
            data-img="${p.img}"
            data-title="${p.title}"
+           onclick="openLightbox(this.dataset.img,this.dataset.title)"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this.dataset.img,this.dataset.title)}"
            role="button" tabindex="0" aria-label="Enlarge ${p.title} screenshot">
         <img class="proj-img"
              src="${p.img}"
@@ -159,17 +161,6 @@ function renderProjects() {
       </div>
     </div>
   `).join('');
-
-  // Event delegation — handles any title (apostrophes, quotes, etc.)
-  container.addEventListener('click', e => {
-    const wrap = e.target.closest('.proj-img-wrap');
-    if (wrap) openLightbox(wrap.dataset.img, wrap.dataset.title);
-  });
-  container.addEventListener('keydown', e => {
-    if (e.key !== 'Enter' && e.key !== ' ') return;
-    const wrap = e.target.closest('.proj-img-wrap');
-    if (wrap) { e.preventDefault(); openLightbox(wrap.dataset.img, wrap.dataset.title); }
-  });
 }
 
 // ── Navigation ────────────────────────────────────────────────────────────────
