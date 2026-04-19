@@ -25,11 +25,21 @@ body {
   color: var(--text);
   min-height: 100vh;
   padding-top: 64px;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
   background-image:
     linear-gradient(rgba(99,102,241,0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(99,102,241,0.03) 1px, transparent 1px);
   background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
 }
+
+.container { position: relative; z-index: 1; }
 
 .navbar {
   position: fixed;
@@ -271,7 +281,6 @@ body {
   border: 1px solid var(--border);
   transition: transform 0.25s ease, border-color 0.25s ease;
   background: var(--bg-card);
-  will-change: transform;
 }
 
 .proj-grid--featured .proj-card {
@@ -283,6 +292,7 @@ body {
   transform: translateY(-4px);
   box-shadow: 0 16px 32px rgba(0,0,0,0.45);
   border-color: rgba(0,212,255,0.3);
+  will-change: transform;
 }
 
 .proj-img-wrap {

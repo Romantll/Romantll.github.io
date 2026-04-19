@@ -98,18 +98,19 @@ function cardHTML(p) {
     ? `<a class="proj-link proj-link--web" href="${p.website}" target="_blank" rel="noopener noreferrer" title="Visit website" onclick="event.stopPropagation()">${ICON_WEB}</a>`
     : '';
 
+  const t = JSON.stringify(p.title);
   return `
     <div class="proj-card" data-title="${p.title}">
       <div class="proj-img-wrap"
-           onclick="openLightbox('${p.img}', '${p.title}')"
-           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox('${p.img}','${p.title}')}"
+           onclick="openLightbox('${p.img}', ${t})"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox('${p.img}',${t})}"
            role="button" tabindex="0" aria-label="Enlarge ${p.title} screenshot">
         <img class="proj-img"
              src="${p.img}"
              alt="Screenshot of ${p.title}"
              loading="lazy"
              decoding="async"
-             onerror="this.closest('.proj-img-wrap').classList.add('img-error');this.closest('.proj-card').setAttribute('data-title','${p.title}')" />
+             onerror="this.closest('.proj-img-wrap').classList.add('img-error');this.closest('.proj-card').setAttribute('data-title',${t})" />
         <div class="proj-hover-overlay">
           <p class="proj-desc">${p.desc}</p>
         </div>
