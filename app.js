@@ -103,8 +103,6 @@ function cardHTML(p) {
       <div class="proj-img-wrap"
            data-img="${p.img}"
            data-title="${p.title}"
-           onclick="openLightbox(this.dataset.img,this.dataset.title)"
-           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this.dataset.img,this.dataset.title)}"
            role="button" tabindex="0" aria-label="Enlarge ${p.title} screenshot">
         <img class="proj-img"
              src="${p.img}"
@@ -161,6 +159,18 @@ function renderProjects() {
       </div>
     </div>
   `).join('');
+
+  container.querySelectorAll('.proj-img-wrap').forEach(wrap => {
+    const src   = wrap.dataset.img;
+    const title = wrap.dataset.title;
+    wrap.addEventListener('click', () => openLightbox(src, title));
+    wrap.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(src, title);
+      }
+    });
+  });
 }
 
 // ── Navigation ────────────────────────────────────────────────────────────────
